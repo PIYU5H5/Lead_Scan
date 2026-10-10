@@ -96,10 +96,9 @@ export function RadialProgress({ value, size = 112, stroke = 8, color = 'var(--a
   );
 }
 
-/* ---- Premium Studio Waveform visualizer ---- */
+/* ---- Clean Audio Waveform visualizer ---- */
 export function Waveform({ playing = false }) {
-  // 16 visualizer bars with harmonic natural heights
-  const bars = [10, 16, 24, 14, 28, 20, 32, 22, 16, 28, 14, 24, 18, 26, 14, 8];
+  const bars = [8, 14, 20, 12, 22, 16, 24, 18, 10, 6];
   return (
     <div className={`waveform${playing ? ' playing' : ''}`} aria-hidden="true">
       {bars.map((h, i) => (
@@ -108,7 +107,7 @@ export function Waveform({ playing = false }) {
           className="waveform-bar"
           style={{
             height: playing ? h : 3,
-            animationDelay: `${(i * 0.08).toFixed(2)}s`,
+            animationDelay: `${(i * 0.09).toFixed(2)}s`,
             animationPlayState: playing ? 'running' : 'paused',
           }}
         />
@@ -125,7 +124,7 @@ export function StatTile({ label, value, sub, subType = 'neutral', accent: Accen
         <span className="stat-tile-label">{label}</span>
         {AccentIcon && (
           <div className="stat-tile-icon-badge" aria-hidden="true">
-            <AccentIcon size={15} strokeWidth={2} />
+            <AccentIcon size={14} strokeWidth={2} />
           </div>
         )}
       </div>
@@ -133,11 +132,6 @@ export function StatTile({ label, value, sub, subType = 'neutral', accent: Accen
       {sub && (
         <div className={`stat-tile-sub ${subType}`}>
           <span className="stat-tile-sub-pill">{sub}</span>
-        </div>
-      )}
-      {AccentIcon && (
-        <div className="stat-tile-accent" aria-hidden="true">
-          <AccentIcon size={64} strokeWidth={1} />
         </div>
       )}
     </div>

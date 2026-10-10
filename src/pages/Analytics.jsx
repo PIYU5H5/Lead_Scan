@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
 import { CALLS, SENTIMENT_CONFIG } from '../data/callData';
-import { TrendingUp, TrendingDown, Target, BarChart3 } from 'lucide-react';
+import { TrendingUp, TrendingDown, Target, BarChart3, ArrowRight } from 'lucide-react';
 import { StatTile, ProgressBar, RadialProgress, SentimentChip } from '../components/UIComponents';
 
 const total = CALLS.length;
@@ -8,7 +9,7 @@ const avgConf = total ? Math.round(CALLS.reduce((s, c) => s + c.sentimentScore, 
 
 function InlineBar({ value, variant }) {
   return (
-    <div style={{ flex: 1 }}>
+    <div style={{ flex: 1, minWidth: 60 }}>
       <ProgressBar value={value} variant={variant} height={3} />
     </div>
   );
@@ -30,20 +31,38 @@ export default function Analytics() {
     <div className="page-content anim-up">
 
       {/* Header */}
-      <header style={{ marginBottom: 'var(--sp-10)' }}>
-        <p className="page-eyebrow">Analytics</p>
-        <h1 className="page-title">Performance Overview</h1>
-        <div className="page-meta">
-          <span className="page-meta-item mono">{total} recordings · Full dataset</span>
+      <header style={{ marginBottom: 'var(--sp-7)' }}>
+        <p className="page-eyebrow">Data Intelligence</p>
+        <div className="flex items-center justify-between" style={{ flexWrap: 'wrap', gap: 'var(--sp-3)' }}>
+          <div>
+            <h1 className="page-title">Performance & Pipeline Analytics</h1>
+            <div className="page-meta">
+              <span className="page-meta-item mono">{total} recordings evaluated</span>
+              <span style={{ color: 'var(--border-2)' }}>·</span>
+              <span className="page-meta-item">Cohort: Q3 Ingested Dataset</span>
+            </div>
+          </div>
         </div>
       </header>
 
-      {/* KPI */}
-      <div className="grid-4 mb-8">
-        <StatTile label="Avg. Purchase Prob." value={`${avgProb}%`} sub="Across all calls" delay={1} accent={Target} />
-        <StatTile label="Avg. Sentiment Conf." value={`${avgConf}%`} sub="Model confidence" delay={2} accent={BarChart3} />
+      {/* KPI Ribbon */}
+      <div className="grid-4 mb-6">
         <StatTile
-          label="High-Intent Leads"
+          label="Avg. Purchase Prob."
+          value={`${avgProb}%`}
+          sub="Model aggregate"
+          delay={1}
+          accent={Target}
+        />
+        <StatTile
+          label="Avg. Sentiment Conf."
+          value={`${avgConf}%`}
+          sub="Zero-shot certainty"
+          delay={2}
+          accent={BarChart3}
+        />
+        <StatTile
+          label="High-Intent Accounts"
           value={CALLS.filter(c => c.purchaseProbability >= 70).length}
           sub="≥70% probability"
           subType="positive"
@@ -51,7 +70,7 @@ export default function Analytics() {
           accent={TrendingUp}
         />
         <StatTile
-          label="Churn Risks"
+          label="Churn Risk Accounts"
           value={CALLS.filter(c => c.sentiment === 'negative').length}
           sub="Negative sentiment"
           subType="negative"
@@ -60,28 +79,39 @@ export default function Analytics() {
         />
       </div>
 
-      {/* Charts */}
-      <div className="grid-2 mb-8">
+      {/* Charts Deck */}
+      <div className="grid-2 mb-6">
 
         {/* Purchase Prob. by call */}
         <div className="card">
           <div className="card-header">
-            <span className="section-label">Purchase Probability</span>
+            <span className="section-heading" style={{ fontSize: 'var(--text-sm)' }}>Purchase Probability Ranking</span>
+            <span className="mono" style={{ fontSize: 11, color: 'var(--ink-500)' }}>Sorted descending</span>
           </div>
-          <div className="card-body flex flex-col gap-4">
+          <div className="card-body flex flex-col gap-3">
             {[...CALLS]
               .sort((a, b) => b.purchaseProbability - a.purchaseProbability)
               .map(call => {
                 const variant = call.purchaseProbability >= 70 ? 'positive' : call.purchaseProbability >= 40 ? 'warning' : 'negative';
                 return (
                   <div key={call.id} className="flex items-center gap-3">
-                    <span style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-400)', width: 80, flexShrink: 0, fontWeight: 500 }}>
+                    <Link
+                      to={`/calls/${call.id}`}
+                      style={{
+                        fontSize: 'var(--text-xs)',
+                        color: 'var(--ink-200)',
+                        width: 90,
+                        flexShrink: 0,
+                        fontWeight: 600,
+                        textDecoration: 'none',
+                      }}
+                    >
                       {call.customerName.split(' ')[0]}
-                    </span>
+                    </Link>
                     <div style={{ flex: 1 }}>
                       <ProgressBar value={call.purchaseProbability} variant={variant} height={4} />
                     </div>
-                    <span style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-400)', fontFamily: 'var(--font-mono)', width: 32, textAlign: 'right', flexShrink: 0 }}>
+                    <span className="mono" style={{ fontSize: 11, color: 'var(--ink-400)', width: 38, textAlign: 'right', flexShrink: 0, fontWeight: 600 }}>
                       {call.purchaseProbability}%
                     </span>
                   </div>
@@ -93,10 +123,11 @@ export default function Analytics() {
         {/* Sentiment Distribution */}
         <div className="card">
           <div className="card-header">
-            <span className="section-label">Sentiment Distribution</span>
+            <span className="section-heading" style={{ fontSize: 'var(--text-sm)' }}>Sentiment Distribution</span>
+            <span className="mono" style={{ fontSize: 11, color: 'var(--ink-500)' }}>Relative split</span>
           </div>
           <div className="card-body">
-            <div className="flex justify-around mb-6">
+            <div className="flex justify-around mb-5">
               {sentDist.map(({ key, cfg, count }) => {
                 const color = key === 'positive'
                   ? 'var(--status-positive)'
@@ -107,8 +138,8 @@ export default function Analytics() {
                   <RadialProgress
                     key={key}
                     value={Math.round((count / total) * 100)}
-                    size={82}
-                    stroke={7}
+                    size={72}
+                    stroke={6}
                     color={color}
                     sub={cfg.label.slice(0, 4)}
                   />
@@ -126,12 +157,21 @@ export default function Analytics() {
                   <div
                     key={key}
                     className="flex items-center gap-3"
-                    style={{ padding: '10px var(--sp-4)', borderRadius: 'var(--r-lg)', background: 'var(--border-0)', border: '1px solid var(--border-1)' }}
+                    style={{
+                      padding: '8px var(--sp-3)',
+                      borderRadius: 'var(--r-md)',
+                      background: 'var(--surface-2)',
+                      border: '1px solid var(--border-1)',
+                    }}
                   >
                     <div style={{ width: 6, height: 6, borderRadius: '50%', background: color, flexShrink: 0 }} />
-                    <span style={{ flex: 1, fontSize: 'var(--text-sm)', color: 'var(--ink-300)', fontWeight: 500 }}>{cfg.label}</span>
-                    <span style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-500)', fontFamily: 'var(--font-mono)' }}>{count} calls</span>
-                    <span style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-500)', fontFamily: 'var(--font-mono)', width: 52, textAlign: 'right' }}>
+                    <span style={{ flex: 1, fontSize: 'var(--text-xs)', color: 'var(--ink-200)', fontWeight: 500 }}>
+                      {cfg.label}
+                    </span>
+                    <span className="mono" style={{ fontSize: 11, color: 'var(--ink-400)' }}>
+                      {count} call{count !== 1 ? 's' : ''}
+                    </span>
+                    <span className="mono" style={{ fontSize: 11, color: 'var(--ink-400)', width: 56, textAlign: 'right' }}>
                       avg {ap}%
                     </span>
                   </div>
@@ -142,16 +182,16 @@ export default function Analytics() {
         </div>
       </div>
 
-      {/* Comparison Table */}
+      {/* Comparison Matrix Table */}
       <div className="card" style={{ overflow: 'hidden' }}>
         <div className="card-header">
-          <span className="section-label">Comparison Matrix</span>
-          <span style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-600)', fontFamily: 'var(--font-mono)' }}>
+          <span className="section-heading" style={{ fontSize: 'var(--text-sm)' }}>Account Comparison Matrix</span>
+          <span className="mono" style={{ fontSize: 11, color: 'var(--ink-500)' }}>
             {total} records
           </span>
         </div>
         <div style={{ overflowX: 'auto' }}>
-          <table className="data-table" style={{ minWidth: 640 }}>
+          <table className="data-table" style={{ minWidth: 680 }}>
             <thead>
               <tr>
                 <th>Customer</th>
@@ -161,6 +201,7 @@ export default function Analytics() {
                 <th>Purchase Prob.</th>
                 <th>Duration</th>
                 <th>Agent</th>
+                <th style={{ textAlign: 'right' }}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -169,15 +210,22 @@ export default function Analytics() {
                 const sentVariant = call.sentiment === 'positive' ? 'positive' : call.sentiment === 'negative' ? 'negative' : 'accent';
                 return (
                   <tr key={call.id}>
-                    <td style={{ fontWeight: 600, color: 'var(--ink-100)' }}>{call.customerName}</td>
                     <td>
-                      <span className="chip chip-ghost">{call.archetype}</span>
+                      <Link
+                        to={`/calls/${call.id}`}
+                        style={{ fontWeight: 600, color: 'var(--ink-100)', textDecoration: 'none' }}
+                      >
+                        {call.customerName}
+                      </Link>
+                    </td>
+                    <td>
+                      <span className="chip chip-ghost" style={{ fontSize: 10 }}>{call.archetype}</span>
                     </td>
                     <td><SentimentChip sentiment={call.sentiment} /></td>
                     <td>
                       <div className="flex items-center gap-2">
                         <InlineBar value={call.sentimentScore} variant={sentVariant} />
-                        <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--ink-400)', flexShrink: 0 }}>
+                        <span className="mono" style={{ fontSize: 11, color: 'var(--ink-400)', flexShrink: 0 }}>
                           {call.sentimentScore}%
                         </span>
                       </div>
@@ -185,13 +233,18 @@ export default function Analytics() {
                     <td>
                       <div className="flex items-center gap-2">
                         <InlineBar value={call.purchaseProbability} variant={probVariant} />
-                        <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--ink-400)', flexShrink: 0 }}>
+                        <span className="mono" style={{ fontSize: 11, color: 'var(--ink-400)', flexShrink: 0, fontWeight: 600 }}>
                           {call.purchaseProbability}%
                         </span>
                       </div>
                     </td>
-                    <td style={{ fontFamily: 'var(--font-mono)', fontSize: 12 }}>{call.duration}</td>
-                    <td>{call.agent}</td>
+                    <td className="mono" style={{ fontSize: 11 }}>{call.duration}</td>
+                    <td style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-300)' }}>{call.agent}</td>
+                    <td style={{ textAlign: 'right' }}>
+                      <Link to={`/calls/${call.id}`} className="btn btn-ghost btn-sm">
+                        View <ArrowRight size={11} strokeWidth={2} aria-hidden="true" />
+                      </Link>
+                    </td>
                   </tr>
                 );
               })}

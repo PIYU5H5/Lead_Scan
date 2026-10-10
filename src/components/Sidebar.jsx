@@ -15,16 +15,16 @@ const NAV = [
 export default function Sidebar() {
   return (
     <aside className="sidebar" aria-label="Sidebar navigation">
-      {/* Logo */}
+      {/* Brand Header */}
       <NavLink to="/" className="sidebar-logo" aria-label="LeadSync home">
-        <div className="logo-mark">
-          <Zap size={14} aria-hidden="true" />
+        <div className="logo-mark" aria-hidden="true">
+          <Zap size={14} />
         </div>
         <span className="logo-wordmark">LeadSync</span>
-        <span className="logo-version">v1</span>
+        <span className="logo-version">PROD</span>
       </NavLink>
 
-      {/* Navigation */}
+      {/* Main Navigation */}
       <nav className="sidebar-nav" aria-label="Main menu">
         <span className="sidebar-section-label">Workspace</span>
         {NAV.map(({ to, icon: Icon, label, count }) => (
@@ -52,12 +52,15 @@ export default function Sidebar() {
         </NavLink>
       </nav>
 
-      {/* User */}
+      {/* Workspace Operator Profile */}
       <div className="sidebar-footer">
         <div className="user-avatar" aria-hidden="true">AD</div>
-        <div>
-          <div className="user-name">Admin</div>
-          <div className="user-role">Sales Intelligence</div>
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <div className="user-name">Admin Console</div>
+          <div className="user-role flex items-center gap-1">
+            <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--status-positive)', display: 'inline-block' }} aria-hidden="true" />
+            <span>Telemetry Online</span>
+          </div>
         </div>
       </div>
     </aside>

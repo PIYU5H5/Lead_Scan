@@ -1,0 +1,183 @@
+{
+  "meta": {
+    "name": "LeadSync Enterprise Design DNA",
+    "description": "Premium, production-grade B2B SaaS sales intelligence dashboard profile adhering to Design DNA schema.",
+    "source_references": ["Linear", "Stripe Dashboard", "Vercel Analytics"],
+    "created_at": "2026-10-10T20:45:00Z"
+  },
+  "design_system": {
+    "color": {
+      "palette_type": "restrained-semantic-slate",
+      "primary": { "hex": "#4F46E5", "role": "Primary brand accent, focused interactions, primary buttons" },
+      "secondary": { "hex": "#0F172A", "role": "Structural depth and dark headers" },
+      "accent": { "hex": "#6366F1", "role": "Active states, highlights, focus rings" },
+      "neutral": {
+        "scale": [
+          "#070B14",
+          "#0B0F19",
+          "#111827",
+          "#162032",
+          "#1E293B",
+          "#334155",
+          "#475569",
+          "#64748B",
+          "#94A3B8",
+          "#CBD5E1",
+          "#E2E8F0",
+          "#F1F5F9",
+          "#F8FAFC",
+          "#FFFFFF"
+        ],
+        "usage": "Ordered dark to light for multi-theme token mapping"
+      },
+      "semantic": {
+        "success": "#10B981",
+        "warning": "#F59E0B",
+        "error": "#EF4444",
+        "info": "#3B82F6"
+      },
+      "surface": {
+        "background": "#0B0F19",
+        "card": "#111827",
+        "elevated": "#162032"
+      },
+      "contrast_strategy": "high-contrast-editorial"
+    },
+    "typography": {
+      "font_families": {
+        "heading": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        "body": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        "mono": "'JetBrains Mono', 'SF Mono', monospace"
+      },
+      "type_scale": {
+        "display": { "size": "32px", "weight": "700", "line_height": "1.15", "tracking": "-0.03em" },
+        "heading_1": { "size": "24px", "weight": "600", "line_height": "1.2", "tracking": "-0.025em" },
+        "heading_2": { "size": "18px", "weight": "600", "line_height": "1.25", "tracking": "-0.02em" },
+        "heading_3": { "size": "15px", "weight": "600", "line_height": "1.3", "tracking": "-0.01em" },
+        "body": { "size": "14px", "weight": "400", "line_height": "1.5", "tracking": "-0.005em" },
+        "body_small": { "size": "13px", "weight": "400", "line_height": "1.45", "tracking": "0em" },
+        "caption": { "size": "12px", "weight": "500", "line_height": "1.4", "tracking": "0.01em" },
+        "overline": { "size": "11px", "weight": "600", "line_height": "1.2", "tracking": "0.06em" }
+      },
+      "font_style_notes": "Tabular numerals enforced for all metrics, timestamps, and confidence percentages."
+    },
+    "spacing": {
+      "base_unit": "4px",
+      "scale": ["4px", "8px", "12px", "16px", "20px", "24px", "32px", "40px", "48px", "64px"],
+      "content_density": "compact-enterprise",
+      "section_rhythm": "consistent-32px"
+    },
+    "layout": {
+      "grid_system": "12-column-responsive",
+      "max_content_width": "1400px",
+      "columns": 12,
+      "gutter": "20px",
+      "breakpoints": { "mobile": "640px", "tablet": "1024px", "desktop": "1280px" },
+      "alignment_tendency": "left-aligned-structured"
+    },
+    "shape": {
+      "border_radius": {
+        "small": "4px",
+        "medium": "6px",
+        "large": "8px",
+        "pill": "9999px"
+      },
+      "border_usage": "1px-crisp-perimeter",
+      "divider_style": "1px-subtle-neutral"
+    },
+    "elevation": {
+      "shadow_style": "layered-subtle",
+      "levels": {
+        "low": "0 1px 2px rgba(0, 0, 0, 0.05)",
+        "medium": "0 2px 8px -1px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06)",
+        "high": "0 8px 24px -4px rgba(0, 0, 0, 0.12), 0 2px 6px -2px rgba(0, 0, 0, 0.04)"
+      },
+      "depth_cues": "surface-tone-and-border-highlight"
+    },
+    "iconography": {
+      "style": "clean-outline",
+      "stroke_weight": "1.75px",
+      "size_scale": ["12px", "14px", "16px", "18px", "20px"],
+      "preferred_set": "lucide-react"
+    },
+    "motion": {
+      "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "duration_scale": {
+        "micro": "120ms",
+        "normal": "200ms",
+        "macro": "320ms"
+      },
+      "entrance_pattern": "fade-up-8px",
+      "exit_pattern": "fade-out",
+      "philosophy": "subtle-functional-responsive"
+    },
+    "components": {
+      "button_style": "solid-filled-primary-and-outlined-ghost",
+      "input_style": "inset-compact-with-focus-ring",
+      "card_style": "flat-bordered-with-subtle-inner-bevel",
+      "navigation_pattern": "fixed-left-sidebar-with-sticky-topbar",
+      "modal_style": "centered-backdrop-blur",
+      "list_style": "tabular-zebra-or-hover-row",
+      "component_notes": "All components must support keyboard focus-visible and aria accessibility tags."
+    }
+  },
+  "design_style": {
+    "aesthetic": {
+      "mood": "executive-precise-authoritative",
+      "visual_metaphor": "mission-control-sales-intelligence",
+      "era_influence": "modern-enterprise-saas",
+      "genre": "B2B SaaS Analytics"
+    },
+    "visual_language": {
+      "whitespace_usage": "disciplined-balanced",
+      "contrast_level": "high-clarity"
+    },
+    "composition": {
+      "hierarchy_method": "typographic-scale-and-weight-differentiation",
+      "balance_type": "structured-asymmetric"
+    },
+    "imagery": {
+      "graphic_elements": "restrained-status-indicators-and-spectrum-bars"
+    },
+    "brand_voice_in_ui": {
+      "tone": "objective-clinical-actionable"
+    },
+    "interaction_feel": {
+      "microinteraction_density": "restrained",
+      "hover_behavior": "subtle-surface-tint-and-gentle-elevation"
+    }
+  },
+  "visual_effects": {
+    "overview": {
+      "effect_intensity": "restrained-minimal",
+      "performance_tier": "lightweight"
+    },
+    "background_effects": {
+      "enabled": false,
+      "type": "none"
+    },
+    "particle_systems": {
+      "enabled": false
+    },
+    "3d_elements": {
+      "enabled": false
+    },
+    "shader_effects": {
+      "enabled": false
+    },
+    "scroll_effects": {
+      "enabled": false
+    },
+    "cursor_effects": {
+      "enabled": false
+    },
+    "glassmorphism": {
+      "enabled": true,
+      "blur_radius": "16px",
+      "transparency": 0.85
+    },
+    "canvas_drawings": {
+      "enabled": false
+    }
+  }
+}
