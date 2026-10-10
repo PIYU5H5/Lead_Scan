@@ -1,0 +1,89 @@
+{
+  "text": " Hello? Hi. Am I speaking with Vikas? Yes. Speaking. Who's this? Hi Vikas. This is Rahul from TechUp Academy. I'm calling Vikas you recently downloaded our syllabus for the Mastering Computer Science and Full Stack Development Program. How are you doing today? Oh, here Rahul. I'm good. Yeah, I was just browsing through the curriculum to see what you guys are offering. That's great. Since you've seen the syllabus, you know we aren't just teaching basic coding. We cover everything from data structures and algorithms to system design and even AIML integration. It's a six month intensive bootcamp with a 100% placement guarantee. Are you looking to pivot into a SDE role? Well, I've been considering it. I see you've included Docker and Kubernetes in the final module. That's a good touch. Most boot camps ignore the devops side of things. Exactly! You clearly know your stuff. Most people don't even notice that. We also have mentors from Google and Amazon taking the weekend deep dive sessions. The idea is to take you from a beginner to someone who can handle a high scale production environment. Right. And the Capstone Project. It says it's a microservices-based architecture. Yes. You'll be building a real-time banking application. It covers load balancing, database, sharding, and higher availability. It's exactly what recruiters look for in a senior grade portfolio. Honestly because, with your background and our roadmap, you could easily land a package in the 15-to-20 LP range. I get it, Rahul. It's a well structured course. You've mapped the industry requirements quite accurately. You're offering the structure, the networking, and the project based learning all in one package. Precisely. And since today is the last day of the month, I can offer you a 25% early bird discount. Plus we have no cost EMI options. It's a small investment for a massive career jump. Shall I send you the payment link? I appreciate the offer Rahul. Truly, the curriculum is solid and for someone who needs hand holding, it's perfect. So can I count you in for the cohorts starting Monday? Actually, no. I'm going to have to pass. Oh, may I ask why? You seem to really like the structure. Is it the fee? We can talk to the manager about a further discount. No, it's not the money. I understand the value you're providing, but I've realized that everything in your syllabus is available via open source documentation and high quality free resources. Since I already have the discipline to learn on my own and a decent network on LinkedIn, I don't think I need to pay for the packaging of that information. But because the placement support, the job guarantee. I know how those guarantees work Rahul. If I'm good enough to pass the company interviews, I don't need the guarantee. If I'm not, a certificate won't save me anyway. I'd rather spend these six months building my own unique projects than the same banking app 500 other students will have. Well, I see you really thought this through. It's rare to talk to someone who knows the landscape so well. It's a great product for the right person Rahul. Just not for me. But I appreciate the call. Good luck with the cohort. Thanks for your time. If you change your mind, you have my number. We'll do. Take care. Bye.",
+  "chunks": [
+    {
+      "timestamp": [
+        0.0,
+        185.28
+      ],
+      "text": " Hello? Hi. Am I speaking with Vikas? Yes. Speaking. Who's this? Hi Vikas. This is Rahul from TechUp Academy. I'm calling Vikas you recently downloaded our syllabus for the Mastering Computer Science and Full Stack Development Program. How are you doing today? Oh, here Rahul. I'm good. Yeah, I was just browsing through the curriculum to see what you guys are offering. That's great. Since you've seen the syllabus, you know we aren't just teaching basic coding. We cover everything from data structures and algorithms to system design and even AIML integration. It's a six month intensive bootcamp with a 100% placement guarantee. Are you looking to pivot into a SDE role? Well, I've been considering it. I see you've included Docker and Kubernetes in the final module. That's a good touch. Most boot camps ignore the devops side of things. Exactly! You clearly know your stuff. Most people don't even notice that. We also have mentors from Google and Amazon taking the weekend deep dive sessions. The idea is to take you from a beginner to someone who can handle a high scale production environment. Right. And the Capstone Project. It says it's a microservices-based architecture. Yes. You'll be building a real-time banking application. It covers load balancing, database, sharding, and higher availability. It's exactly what recruiters look for in a senior grade portfolio. Honestly because, with your background and our roadmap, you could easily land a package in the 15-to-20 LP range. I get it, Rahul. It's a well structured course. You've mapped the industry requirements quite accurately. You're offering the structure, the networking, and the project based learning all in one package. Precisely. And since today is the last day of the month, I can offer you a 25% early bird discount. Plus we have no cost EMI options. It's a small investment for a massive career jump. Shall I send you the payment link? I appreciate the offer Rahul. Truly, the curriculum is solid and for someone who needs hand holding, it's perfect. So can I count you in for the cohorts starting Monday? Actually, no. I'm going to have to pass. Oh, may I ask why? You seem to really like the structure. Is it the fee? We can talk to the manager about a further discount. No, it's not the money. I understand the value you're providing, but I've realized that everything in your syllabus is available via open source documentation and high quality free resources. Since I already have the discipline to learn on my own and a decent network on LinkedIn, I don't think I need to pay for the packaging of that information. But because the placement support, the job guarantee. I know how those guarantees work Rahul. If I'm good enough to pass the company interviews, I don't need the guarantee. If I'm not, a certificate won't save me anyway. I'd rather spend these six months building my own unique projects than the same banking app 500 other students will have."
+    },
+    {
+      "timestamp": [
+        185.28,
+        188.8
+      ],
+      "text": " Well, I see you really thought this through."
+    },
+    {
+      "timestamp": [
+        188.8,
+        192.0
+      ],
+      "text": " It's rare to talk to someone who knows the landscape so well."
+    },
+    {
+      "timestamp": [
+        192.0,
+        194.56
+      ],
+      "text": " It's a great product for the right person Rahul."
+    },
+    {
+      "timestamp": [
+        194.56,
+        195.68
+      ],
+      "text": " Just not for me."
+    },
+    {
+      "timestamp": [
+        195.68,
+        197.36
+      ],
+      "text": " But I appreciate the call."
+    },
+    {
+      "timestamp": [
+        197.36,
+        198.64
+      ],
+      "text": " Good luck with the cohort."
+    },
+    {
+      "timestamp": [
+        198.64,
+        199.84
+      ],
+      "text": " Thanks for your time."
+    },
+    {
+      "timestamp": [
+        199.84,
+        202.08
+      ],
+      "text": " If you change your mind, you have my number."
+    },
+    {
+      "timestamp": [
+        202.08,
+        202.88
+      ],
+      "text": " We'll do."
+    },
+    {
+      "timestamp": [
+        202.88,
+        203.68
+      ],
+      "text": " Take care."
+    },
+    {
+      "timestamp": [
+        203.68,
+        204.0
+      ],
+      "text": " Bye."
+    }
+  ]
+}
