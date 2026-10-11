@@ -66,7 +66,7 @@ export default function Analytics() {
         />
         <StatTile
           label="High-Intent Accounts"
-          value={CALLS.filter(c => c.purchaseProbability >= 70).length}
+          value={calls.filter(c => c.purchaseProbability >= 70).length}
           sub="≥70% probability"
           subType="positive"
           delay={3}
@@ -74,7 +74,7 @@ export default function Analytics() {
         />
         <StatTile
           label="Churn Risk Accounts"
-          value={CALLS.filter(c => c.sentiment === 'negative').length}
+          value={calls.filter(c => c.sentiment === 'negative').length}
           sub="Negative sentiment"
           subType="negative"
           delay={4}
@@ -92,7 +92,7 @@ export default function Analytics() {
             <span className="mono" style={{ fontSize: 11, color: 'var(--ink-500)' }}>Sorted descending</span>
           </div>
           <div className="card-body flex flex-col gap-3">
-            {[...CALLS]
+            {[...calls]
               .sort((a, b) => b.purchaseProbability - a.purchaseProbability)
               .map(call => {
                 const variant = call.purchaseProbability >= 70 ? 'positive' : call.purchaseProbability >= 40 ? 'warning' : 'negative';
@@ -109,7 +109,7 @@ export default function Analytics() {
                         textDecoration: 'none',
                       }}
                     >
-                      {call.customerName.split(' ')[0]}
+                      {call.customerName ? call.customerName.split(' ')[0] : 'Unknown'}
                     </Link>
                     <div style={{ flex: 1 }}>
                       <ProgressBar value={call.purchaseProbability} variant={variant} height={4} />
@@ -140,7 +140,7 @@ export default function Analytics() {
                 return (
                   <RadialProgress
                     key={key}
-                    value={Math.round((count / total) * 100)}
+                    value={total ? Math.round((count / total) * 100) : 0}
                     size={72}
                     stroke={6}
                     color={color}
