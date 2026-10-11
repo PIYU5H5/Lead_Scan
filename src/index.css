@@ -1475,3 +1475,142 @@ body {
 @media (max-width: 768px) {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   MODAL & INGESTION STYLING
+   ============================================================ */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  padding: var(--sp-4);
+  animation: fadeIn 0.15s ease-out;
+}
+
+.modal-dialog {
+  background: var(--surface-2);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.modal-header {
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--border-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface-1);
+}
+
+.modal-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--ink-100);
+  margin-top: 2px;
+}
+
+.modal-body {
+  padding: var(--sp-5);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  padding: var(--sp-3) var(--sp-5);
+  border-top: 1px solid var(--border-1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+  background: var(--surface-1);
+}
+
+/* Dropzone */
+.dropzone {
+  border: 1.5px dashed var(--border-2);
+  background: var(--surface-1);
+  border-radius: var(--r-md);
+  padding: var(--sp-5) var(--sp-4);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--t-fast);
+  outline: none;
+}
+
+.dropzone:hover,
+.dropzone:focus-visible {
+  border-color: var(--accent);
+  background: var(--surface-3);
+}
+
+.dropzone.is-dragging {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  border-style: solid;
+}
+
+.dropzone.has-file {
+  border-style: solid;
+  border-color: var(--accent-border);
+  background: var(--surface-3);
+  padding: var(--sp-3) var(--sp-4);
+}
+
+/* Form Controls */
+.field-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ink-400);
+  margin-bottom: var(--sp-1);
+  font-family: var(--font-mono);
+}
+
+.text-input {
+  width: 100%;
+  padding: var(--sp-2) var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--ink-100);
+  background: var(--surface-1);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  outline: none;
+  font-family: inherit;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+
+.text-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.text-input option {
+  background: var(--surface-1);
+  color: var(--ink-100);
+}
+
+@keyframes pulseEffect {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.65; transform: scale(1.08); }
+}
+
+.anim-pulse {
+  animation: pulseEffect 2s infinite ease-in-out;
+}
+

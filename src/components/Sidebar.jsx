@@ -3,16 +3,17 @@ import {
   LayoutDashboard, PhoneCall, BarChart3,
   Settings, Cpu, Zap
 } from 'lucide-react';
-import { CALLS } from '../data/callData';
-
-const NAV = [
-  { to: '/', icon: LayoutDashboard, label: 'Overview' },
-  { to: '/calls', icon: PhoneCall, label: 'Recordings', count: CALLS.length },
-  { to: '/analytics', icon: BarChart3, label: 'Analytics' },
-  { to: '/ai-pipeline', icon: Cpu, label: 'AI Pipeline' },
-];
+import { useCalls } from '../context/CallsContext';
 
 export default function Sidebar() {
+  const { calls } = useCalls();
+
+  const NAV = [
+    { to: '/', icon: LayoutDashboard, label: 'Overview' },
+    { to: '/calls', icon: PhoneCall, label: 'Recordings', count: calls.length },
+    { to: '/analytics', icon: BarChart3, label: 'Analytics' },
+    { to: '/ai-pipeline', icon: Cpu, label: 'AI Pipeline' },
+  ];
   return (
     <aside className="sidebar" aria-label="Sidebar navigation">
       {/* Brand Header */}

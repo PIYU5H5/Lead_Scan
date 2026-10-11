@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom';
-import { CALLS, SENTIMENT_CONFIG } from '../data/callData';
+import { SENTIMENT_CONFIG } from '../data/callData';
+import { useCalls } from '../context/CallsContext';
 import { TrendingUp, TrendingDown, Target, BarChart3, ArrowRight } from 'lucide-react';
 import { StatTile, ProgressBar, RadialProgress, SentimentChip } from '../components/UIComponents';
-
-const total = CALLS.length;
-const avgProb = total ? Math.round(CALLS.reduce((s, c) => s + c.purchaseProbability, 0) / total) : 0;
-const avgConf = total ? Math.round(CALLS.reduce((s, c) => s + c.sentimentScore, 0) / total) : 0;
 
 function InlineBar({ value, variant }) {
   return (
@@ -16,8 +13,14 @@ function InlineBar({ value, variant }) {
 }
 
 export default function Analytics() {
+  const { calls } = useCalls();
+
+  const total = calls.length;
+  const avgProb = total ? Math.round(calls.reduce((s, c) => s + c.purchaseProbability, 0) / total) : 0;
+  const avgConf = total ? Math.round(calls.reduce((s, c) => s + c.sentimentScore, 0) / total) : 0;
+
   const sentDist = Object.entries(SENTIMENT_CONFIG).map(([key, cfg]) => {
-    const matching = CALLS.filter(c => c.sentiment === key);
+    const matching = calls.filter(c => c.sentiment === key);
     return {
       key, cfg,
       count: matching.length,
@@ -205,7 +208,7 @@ export default function Analytics() {
               </tr>
             </thead>
             <tbody>
-              {CALLS.map(call => {
+              {calls.map(call => {
                 const probVariant = call.purchaseProbability >= 70 ? 'positive' : call.purchaseProbability >= 40 ? 'warning' : 'negative';
                 const sentVariant = call.sentiment === 'positive' ? 'positive' : call.sentiment === 'negative' ? 'negative' : 'accent';
                 return (

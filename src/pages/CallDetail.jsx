@@ -1,7 +1,11 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { ArrowLeft, Phone, Clock, User, Calendar, ChevronDown, ChevronUp, Search, CheckCircle2, AlertOctagon, HelpCircle, ArrowUpRight } from 'lucide-react';
-import { getCallById, SENTIMENT_CONFIG } from '../data/callData';
+import {
+  ArrowLeft, Phone, Clock, User, Calendar, ChevronDown, ChevronUp,
+  Search, Trash2, Sparkles
+} from 'lucide-react';
+import { SENTIMENT_CONFIG } from '../data/callData';
+import { useCalls } from '../context/CallsContext';
 import { SentimentChip, RadialProgress, ProgressBar } from '../components/UIComponents';
 import AudioPlayer from '../components/AudioPlayer';
 import ReportDownload from '../components/ReportDownload';
@@ -43,6 +47,7 @@ function initials(n) { return n.split(' ').map(w => w[0]).join('').slice(0, 2); 
 export default function CallDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { getCallById, deleteCall } = useCalls();
   const call = getCallById(id);
   const [expanded, setExpanded] = useState(false);
   const [speakerFilter, setSpeakerFilter] = useState('All');
@@ -119,6 +124,11 @@ export default function CallDetail() {
                 <span className="chip chip-ghost">
                   {call.archetype}
                 </span>
+                {call.isCustom && (
+                  <span className="chip chip-positive" style={{ fontSize: 10, padding: '2px 8px', gap: 4 }}>
+                    <Sparkles size={10} /> {call.isRealAiAnalysis ? 'Live AI Ingested' : 'Ingested Recording'}
+                  </span>
+                )}
               </div>
 
               <div style={{ display: 'flex', gap: 'var(--sp-4)', marginTop: 'var(--sp-2)', flexWrap: 'wrap' }}>
@@ -135,7 +145,26 @@ export default function CallDetail() {
             </div>
           </div>
 
-          <ReportDownload call={call} />
+          <div className="flex items-center gap-2">
+            {call.isCustom && (
+              <button
+                className="btn btn-ghost btn-sm"
+                style={{ color: 'var(--status-negative)', borderColor: 'var(--status-negative-border)', gap: 6 }}
+                onClick={async () => {
+                  if (window.confirm(`Delete custom recording ${call.id} (${call.customerName})?`)) {
+                    await deleteCall(call.id);
+                    navigate('/calls');
+                  }
+                }}
+                id="btn-delete-call"
+                title="Delete this custom uploaded recording"
+              >
+                <Trash2 size={13} />
+                <span>Delete</span>
+              </button>
+            )}
+            <ReportDownload call={call} />
+          </div>
         </div>
       </div>
 

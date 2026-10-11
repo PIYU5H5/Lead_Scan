@@ -1,12 +1,15 @@
-import { Info, Database, Shield, Sliders, CheckCircle2, Server, Terminal, Sun, Moon } from 'lucide-react';
+import { Database, Shield, Sliders, CheckCircle2, Server, Sun, Moon, UploadCloud, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { useCalls } from '../context/CallsContext';
 
 export default function Settings() {
   const { theme, setTheme } = useTheme();
+  const { calls, openUploadModal, resetToDefault } = useCalls();
   const [audioSimulation, setAudioSimulation] = useState(true);
   const [confidenceThreshold, setConfidenceThreshold] = useState(65);
   const [selectedModel, setSelectedModel] = useState('gpt-4o-mini');
+  const customCount = calls.filter(c => c.isCustom).length;
 
   return (
     <div className="page-content anim-up">
@@ -258,6 +261,65 @@ export default function Settings() {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Ingested Dataset & In-Browser Storage ─────────────────────────────── */}
+        <section className="card">
+          <div className="card-header">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-3)' }}>
+              <div style={{ width: 28, height: 28, borderRadius: 'var(--r-md)', background: 'var(--surface-3)', display: 'grid', placeItems: 'center', border: '1px solid var(--border-1)' }}>
+                <Database size={14} color="var(--accent)" aria-hidden="true" />
+              </div>
+              <div>
+                <h2 style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--ink-100)' }}>Local Dataset & Audio Store</h2>
+                <p style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-400)' }}>In-browser IndexedDB & LocalStorage audio cache</p>
+              </div>
+            </div>
+            <span className="chip chip-ghost mono" style={{ fontSize: 10 }}>
+              {calls.length} RECORDINGS ({customCount} CUSTOM)
+            </span>
+          </div>
+
+          <div className="card-body">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--sp-3)' }}>
+              <div>
+                <p style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-200)', fontWeight: 500, margin: '0 0 2px 0' }}>
+                  Persistent Client-Side Speech Cache
+                </p>
+                <p style={{ fontSize: 'var(--text-2xs)', color: 'var(--ink-400)', margin: 0 }}>
+                  Binary audio streams are stored directly in high-capacity IndexedDB, surviving browser refreshes without server dependency.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)' }}>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm"
+                  onClick={openUploadModal}
+                  style={{ gap: 6 }}
+                >
+                  <UploadCloud size={13} />
+                  <span>Ingest Recording</span>
+                </button>
+
+                {customCount > 0 && (
+                  <button
+                    type="button"
+                    className="btn btn-ghost btn-sm"
+                    style={{ color: 'var(--status-negative)', borderColor: 'var(--status-negative-border)', gap: 6 }}
+                    onClick={() => {
+                      if (window.confirm('Reset workspace and purge all custom uploaded recordings?')) {
+                        resetToDefault();
+                      }
+                    }}
+                  >
+                    <RotateCcw size={13} />
+                    <span>Reset to Benchmark Dataset</span>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </section>

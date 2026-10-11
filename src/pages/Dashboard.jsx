@@ -1,12 +1,8 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, TrendingUp, Phone, AlertTriangle, CheckCircle, ShieldAlert, Sparkles } from 'lucide-react';
-import { CALLS, SENTIMENT_CONFIG } from '../data/callData';
+import { ArrowRight, TrendingUp, Phone, AlertTriangle, CheckCircle, ShieldAlert, Sparkles, UploadCloud } from 'lucide-react';
+import { SENTIMENT_CONFIG } from '../data/callData';
+import { useCalls } from '../context/CallsContext';
 import { StatTile, SentimentChip, ProgressBar } from '../components/UIComponents';
-
-const totalCalls = CALLS.length;
-const avgProb    = totalCalls > 0 ? Math.round(CALLS.reduce((s, c) => s + c.purchaseProbability, 0) / totalCalls) : 0;
-const positive   = CALLS.filter(c => c.sentiment === 'positive').length;
-const negative   = CALLS.filter(c => c.sentiment === 'negative').length;
 
 function initials(name) {
   return name.split(' ').map(n => n[0]).join('').slice(0, 2);
@@ -25,6 +21,13 @@ function getAvatarColor(archetype) {
 }
 
 export default function Dashboard() {
+  const { calls, openUploadModal } = useCalls();
+
+  const totalCalls = calls.length;
+  const avgProb    = totalCalls > 0 ? Math.round(calls.reduce((s, c) => s + c.purchaseProbability, 0) / totalCalls) : 0;
+  const positive   = calls.filter(c => c.sentiment === 'positive').length;
+  const negative   = calls.filter(c => c.sentiment === 'negative').length;
+
   return (
     <div className="page-content anim-up">
 
@@ -52,11 +55,16 @@ export default function Dashboard() {
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              className="btn btn-primary"
+              onClick={openUploadModal}
+              id="dash-btn-upload"
+            >
+              <UploadCloud size={14} strokeWidth={2} />
+              Ingest Recording
+            </button>
             <Link to="/calls" className="btn btn-ghost">
-              Browse Recordings
-            </Link>
-            <Link to="/analytics" className="btn btn-primary">
-              Full Analytics <ArrowRight size={13} strokeWidth={2} aria-hidden="true" />
+              Browse All ({totalCalls})
             </Link>
           </div>
         </div>
@@ -115,7 +123,7 @@ export default function Dashboard() {
           </div>
 
           <div className="flex flex-col gap-2">
-            {CALLS.map((call, i) => {
+            {calls.map((call, i) => {
               const av = getAvatarColor(call.archetype);
               return (
                 <Link
@@ -141,6 +149,11 @@ export default function Dashboard() {
                       <span className="chip chip-ghost" style={{ fontSize: 10, padding: '1px 6px' }}>
                         {call.archetype}
                       </span>
+                      {call.isCustom && (
+                        <span className="chip chip-positive" style={{ fontSize: 9, padding: '1px 6px', gap: 3 }}>
+                          <Sparkles size={9} /> Ingested
+                        </span>
+                      )}
                     </div>
 
                     <div className="call-row-sub">
@@ -180,7 +193,7 @@ export default function Dashboard() {
             </div>
             <div className="card-body">
               {Object.entries(SENTIMENT_CONFIG).map(([key, cfg]) => {
-                const count = CALLS.filter(c => c.sentiment === key).length;
+                const count = calls.filter(c => c.sentiment === key).length;
                 const pct = Math.round((count / totalCalls) * 100);
                 return (
                   <div key={key} style={{ marginBottom: 'var(--sp-3)' }}>

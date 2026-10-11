@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Phone, Clock, User, Calendar, Search } from 'lucide-react';
-import { CALLS } from '../data/callData';
+import { ArrowRight, Phone, Clock, User, Calendar, Search, UploadCloud, Sparkles } from 'lucide-react';
+import { useCalls } from '../context/CallsContext';
 import { SentimentChip, ProgressBar } from '../components/UIComponents';
 
 const FILTERS = ['All', 'Positive', 'Neutral', 'Negative'];
@@ -23,10 +23,11 @@ function initials(name) {
 }
 
 export default function CallList() {
+  const { calls, openUploadModal } = useCalls();
   const [filter, setFilter] = useState('All');
   const [query, setQuery]   = useState('');
 
-  const visible = CALLS.filter(c => {
+  const visible = calls.filter(c => {
     const fMatch = filter === 'All' || c.sentiment === filter.toLowerCase();
     const q = query.toLowerCase();
     const qMatch = !q || c.customerName.toLowerCase().includes(q) || c.id.toLowerCase().includes(q) || c.archetype.toLowerCase().includes(q);
@@ -45,10 +46,19 @@ export default function CallList() {
             <div className="page-meta">
               <span className="page-meta-item">
                 <Phone size={12} strokeWidth={2} aria-hidden="true" />
-                {CALLS.length} recordings ingested · {visible.length} displayed
+                {calls.length} recordings ingested · {visible.length} displayed
               </span>
             </div>
           </div>
+
+          <button
+            className="btn btn-primary"
+            onClick={openUploadModal}
+            id="call-list-btn-upload"
+          >
+            <UploadCloud size={14} strokeWidth={2} />
+            Ingest Recording
+          </button>
         </div>
       </header>
 
@@ -130,6 +140,11 @@ export default function CallList() {
                     <span className="chip chip-ghost" style={{ fontSize: 10, padding: '1px 6px' }}>
                       {call.archetype}
                     </span>
+                    {call.isCustom && (
+                      <span className="chip chip-positive" style={{ fontSize: 9, padding: '1px 6px', gap: 3 }}>
+                        <Sparkles size={9} /> Ingested
+                      </span>
+                    )}
                   </div>
 
                   <div className="call-row-sub">

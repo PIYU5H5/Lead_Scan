@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment & Local Secrets
+.env
+.env.local
+.env.*.local
+
+# Server upload temp folder
+uploads/

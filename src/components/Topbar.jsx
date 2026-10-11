@@ -1,7 +1,8 @@
 import { useLocation, Link } from 'react-router-dom';
-import { Bell, Search, Sun, Moon } from 'lucide-react';
+import { Bell, Search, Sun, Moon, UploadCloud } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { useCalls } from '../context/CallsContext';
 
 const LABELS = {
   '/': 'Overview',
@@ -24,6 +25,7 @@ export default function Topbar() {
   const location = useLocation();
   const time = useTime();
   const { theme, toggleTheme } = useTheme();
+  const { openUploadModal } = useCalls();
   const isDetail = location.pathname.startsWith('/calls/') && location.pathname.length > 7;
   const currentLabel = isDetail ? 'Recordings' : LABELS[location.pathname] || 'Overview';
   const detailId = isDetail ? location.pathname.split('/').pop() : null;
@@ -54,6 +56,18 @@ export default function Topbar() {
       </nav>
 
       <div className="topbar-actions">
+        {/* Upload / Ingest Call CTA */}
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={openUploadModal}
+          id="topbar-btn-upload"
+          aria-label="Upload call recording"
+          style={{ gap: 6, padding: '4px 10px', fontSize: 11 }}
+        >
+          <UploadCloud size={13} strokeWidth={2.2} />
+          <span>Ingest Call</span>
+        </button>
+
         {/* Live system clock & status indicator */}
         <div className="topbar-status" aria-label={`System telemetry active, current time ${time.toLocaleTimeString()}`}>
           <span className="status-pip" aria-hidden="true" />
