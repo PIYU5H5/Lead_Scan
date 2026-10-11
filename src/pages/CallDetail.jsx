@@ -99,10 +99,11 @@ export default function CallDetail() {
       </div>
 
       {/* ── Executive Customer Header Card ─────────── */}
-      <div className="card mb-6" style={{ padding: 'var(--sp-5)' }}>
+      <div className="card mb-6 customer-header-card">
         <div className="flex items-start justify-between gap-4" style={{ flexWrap: 'wrap' }}>
-          <div className="flex items-center gap-4">
+          <div className="customer-header-deck">
             <div
+              className="customer-avatar-box"
               style={{
                 width: 48, height: 48, borderRadius: 'var(--r-md)',
                 background: av.bg, color: av.color,
@@ -115,8 +116,8 @@ export default function CallDetail() {
               {initials(call.customerName)}
             </div>
 
-            <div>
-              <div className="flex items-center gap-3">
+            <div className="customer-header-info">
+              <div className="customer-header-title-row">
                 <h1 style={{ fontSize: 'var(--text-xl)', fontWeight: 700, color: 'var(--ink-100)', lineHeight: 1.2 }}>
                   {call.customerName}
                 </h1>
@@ -283,7 +284,7 @@ export default function CallDetail() {
       </div>
 
       {/* ── Two-Column Analysis Deck ───────────────── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.15fr 0.85fr', gap: 'var(--sp-5)' }}>
+      <div className="call-detail-deck">
 
         {/* Left Column: Interactive Full Transcript */}
         <div>
@@ -296,7 +297,7 @@ export default function CallDetail() {
 
           <div className="card" style={{ overflow: 'hidden' }}>
             {/* Transcript toolbar */}
-            <div style={{ padding: 'var(--sp-3) var(--sp-4)', borderBottom: '1px solid var(--border-1)', display: 'flex', gap: 'var(--sp-3)', alignItems: 'center' }}>
+            <div className="transcript-toolbar">
               <div className="filter-tabs">
                 {['All', 'Customer', 'Agent'].map(spk => (
                   <button

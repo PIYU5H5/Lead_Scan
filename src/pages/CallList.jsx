@@ -157,7 +157,7 @@ export default function CallList() {
                     <span>{call.date}</span>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--sp-4)', marginTop: 'var(--sp-2)', maxWidth: 420 }}>
+                  <div className="call-row-meters">
                     <div>
                       <div className="flex justify-between items-center mb-1">
                         <span style={{ fontSize: 10, color: 'var(--ink-500)', textTransform: 'uppercase', letterSpacing: '0.5px', fontFamily: 'var(--font-mono)' }}>

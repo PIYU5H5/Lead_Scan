@@ -316,7 +316,7 @@ export default function UploadCallModal() {
               )}
 
               {/* Mode Selector Tabs */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--sp-2)', marginBottom: 'var(--sp-4)' }}>
+              <div className="modal-mode-tabs">
                 <button
                   type="button"
                   className={`btn ${analysisMode === 'ai' ? 'btn-primary' : 'btn-ghost'}`}
@@ -470,7 +470,7 @@ export default function UploadCallModal() {
               )}
 
               {/* Call Metadata Fields */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--sp-3)', marginTop: 'var(--sp-4)' }}>
+              <div className="modal-field-grid">
                 <div>
                   <label className="field-label" htmlFor="cust-name">
                     Customer Name <span style={{ color: 'var(--accent)' }}>*</span>

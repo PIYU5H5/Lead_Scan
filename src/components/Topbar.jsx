@@ -1,5 +1,5 @@
 import { useLocation, Link } from 'react-router-dom';
-import { Bell, Search, Sun, Moon, UploadCloud } from 'lucide-react';
+import { Bell, Search, Sun, Moon, UploadCloud, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useCalls } from '../context/CallsContext';
@@ -25,35 +25,48 @@ export default function Topbar() {
   const location = useLocation();
   const time = useTime();
   const { theme, toggleTheme } = useTheme();
-  const { openUploadModal } = useCalls();
+  const { openUploadModal, toggleMobileNav, mobileNavOpen } = useCalls();
   const isDetail = location.pathname.startsWith('/calls/') && location.pathname.length > 7;
   const currentLabel = isDetail ? 'Recordings' : LABELS[location.pathname] || 'Overview';
   const detailId = isDetail ? location.pathname.split('/').pop() : null;
 
   return (
     <header className="topbar" aria-label="Top navigation">
-      <nav className="breadcrumb" aria-label="Breadcrumb">
-        <Link to="/" className="breadcrumb-item" style={{ textDecoration: 'none', color: 'inherit' }}>
-          LeadSync
-        </Link>
-        <span className="breadcrumb-sep" aria-hidden="true">/</span>
+      <div className="topbar-left">
+        {/* Mobile Hamburger Toggle Button */}
+        <button
+          className="icon-btn mobile-menu-toggle"
+          id="mobile-nav-toggle"
+          onClick={toggleMobileNav}
+          aria-label={mobileNavOpen ? 'Close navigation drawer' : 'Open navigation drawer'}
+          aria-expanded={mobileNavOpen}
+        >
+          {mobileNavOpen ? <X size={15} /> : <Menu size={15} />}
+        </button>
 
-        {isDetail ? (
-          <>
-            <Link to="/calls" className="breadcrumb-item" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <nav className="breadcrumb" aria-label="Breadcrumb">
+          <Link to="/" className="breadcrumb-item breadcrumb-root" style={{ textDecoration: 'none', color: 'inherit' }}>
+            LeadSync
+          </Link>
+          <span className="breadcrumb-sep" aria-hidden="true">/</span>
+
+          {isDetail ? (
+            <>
+              <Link to="/calls" className="breadcrumb-item breadcrumb-parent" style={{ textDecoration: 'none', color: 'inherit' }}>
+                {currentLabel}
+              </Link>
+              <span className="breadcrumb-sep breadcrumb-parent" aria-hidden="true">/</span>
+              <span className="breadcrumb-item is-current mono" aria-current="page" style={{ fontSize: 11 }}>
+                {detailId}
+              </span>
+            </>
+          ) : (
+            <span className="breadcrumb-item is-current" aria-current="page">
               {currentLabel}
-            </Link>
-            <span className="breadcrumb-sep" aria-hidden="true">/</span>
-            <span className="breadcrumb-item is-current mono" aria-current="page" style={{ fontSize: 11 }}>
-              {detailId}
             </span>
-          </>
-        ) : (
-          <span className="breadcrumb-item is-current" aria-current="page">
-            {currentLabel}
-          </span>
-        )}
-      </nav>
+          )}
+        </nav>
+      </div>
 
       <div className="topbar-actions">
         {/* Upload / Ingest Call CTA */}

@@ -269,7 +269,7 @@ export default function ReportDownload({ call }) {
   };
 
   return (
-    <div style={{ display: 'flex', gap: 8 }}>
+    <div className="report-download-group">
       <button
         className="btn btn-primary"
         onClick={handlePDF}

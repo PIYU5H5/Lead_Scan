@@ -100,6 +100,12 @@ export function CallsProvider({ children }) {
     [calls]
   );
 
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  const openMobileNav = useCallback(() => setMobileNavOpen(true), []);
+  const closeMobileNav = useCallback(() => setMobileNavOpen(false), []);
+  const toggleMobileNav = useCallback(() => setMobileNavOpen(prev => !prev), []);
+
   const value = useMemo(
     () => ({
       calls,
@@ -111,8 +117,26 @@ export function CallsProvider({ children }) {
       isUploadModalOpen,
       openUploadModal,
       closeUploadModal,
+      mobileNavOpen,
+      openMobileNav,
+      closeMobileNav,
+      toggleMobileNav,
     }),
-    [calls, isLoaded, getCallById, addCall, deleteCall, resetToDefault, isUploadModalOpen, openUploadModal, closeUploadModal]
+    [
+      calls,
+      isLoaded,
+      getCallById,
+      addCall,
+      deleteCall,
+      resetToDefault,
+      isUploadModalOpen,
+      openUploadModal,
+      closeUploadModal,
+      mobileNavOpen,
+      openMobileNav,
+      closeMobileNav,
+      toggleMobileNav,
+    ]
   );
 
   return <CallsContext.Provider value={value}>{children}</CallsContext.Provider>;

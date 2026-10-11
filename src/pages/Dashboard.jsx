@@ -106,7 +106,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── Main Layout Grid ────────────────────────── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 'var(--sp-5)' }}>
+      <div className="dashboard-layout-grid">
 
         {/* Left Column: Call Recordings Table */}
         <div>

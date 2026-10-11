@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard, PhoneCall, BarChart3,
-  Settings, Cpu, Zap
+  Settings, Cpu, Zap, X
 } from 'lucide-react';
 import { useCalls } from '../context/CallsContext';
 
 export default function Sidebar() {
-  const { calls } = useCalls();
+  const { calls, mobileNavOpen, closeMobileNav } = useCalls();
 
   const NAV = [
     { to: '/', icon: LayoutDashboard, label: 'Overview' },
@@ -14,56 +14,79 @@ export default function Sidebar() {
     { to: '/analytics', icon: BarChart3, label: 'Analytics' },
     { to: '/ai-pipeline', icon: Cpu, label: 'AI Pipeline' },
   ];
-  return (
-    <aside className="sidebar" aria-label="Sidebar navigation">
-      {/* Brand Header */}
-      <NavLink to="/" className="sidebar-logo" aria-label="LeadSync home">
-        <div className="logo-mark" aria-hidden="true">
-          <Zap size={14} />
-        </div>
-        <span className="logo-wordmark">LeadSync</span>
-        <span className="logo-version">PROD</span>
-      </NavLink>
 
-      {/* Main Navigation */}
-      <nav className="sidebar-nav" aria-label="Main menu">
-        <span className="sidebar-section-label">Workspace</span>
-        {NAV.map(({ to, icon: Icon, label, count }) => (
+  return (
+    <>
+      {/* Mobile Backdrop */}
+      <div
+        className={`sidebar-backdrop${mobileNavOpen ? ' open' : ''}`}
+        onClick={closeMobileNav}
+        aria-hidden="true"
+      />
+
+      <aside className={`sidebar${mobileNavOpen ? ' open' : ''}`} aria-label="Sidebar navigation">
+        {/* Brand Header */}
+        <div className="sidebar-logo-container">
+          <NavLink to="/" className="sidebar-logo" aria-label="LeadSync home" onClick={closeMobileNav}>
+            <div className="logo-mark" aria-hidden="true">
+              <Zap size={14} />
+            </div>
+            <span className="logo-wordmark">LeadSync</span>
+            <span className="logo-version">PROD</span>
+          </NavLink>
+
+          <button
+            type="button"
+            className="icon-btn mobile-drawer-close"
+            onClick={closeMobileNav}
+            aria-label="Close menu drawer"
+          >
+            <X size={15} />
+          </button>
+        </div>
+
+        {/* Main Navigation */}
+        <nav className="sidebar-nav" aria-label="Main menu">
+          <span className="sidebar-section-label">Workspace</span>
+          {NAV.map(({ to, icon: Icon, label, count }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={to === '/'}
+              onClick={closeMobileNav}
+              className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}
+            >
+              <Icon className="nav-icon" strokeWidth={1.75} aria-hidden="true" />
+              {label}
+              {count !== undefined && (
+                <span className="nav-pill">{count}</span>
+              )}
+            </NavLink>
+          ))}
+
+          <span className="sidebar-section-label" style={{ marginTop: 'auto' }}>System</span>
           <NavLink
-            key={to}
-            to={to}
-            end={to === '/'}
+            to="/settings"
+            onClick={closeMobileNav}
             className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}
           >
-            <Icon className="nav-icon" strokeWidth={1.75} aria-hidden="true" />
-            {label}
-            {count !== undefined && (
-              <span className="nav-pill">{count}</span>
-            )}
+            <Settings className="nav-icon" strokeWidth={1.75} aria-hidden="true" />
+            Settings
           </NavLink>
-        ))}
+        </nav>
 
-        <span className="sidebar-section-label" style={{ marginTop: 'auto' }}>System</span>
-        <NavLink
-          to="/settings"
-          className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}
-        >
-          <Settings className="nav-icon" strokeWidth={1.75} aria-hidden="true" />
-          Settings
-        </NavLink>
-      </nav>
-
-      {/* Workspace Operator Profile */}
-      <div className="sidebar-footer">
-        <div className="user-avatar" aria-hidden="true">AD</div>
-        <div style={{ minWidth: 0, flex: 1 }}>
-          <div className="user-name">Admin Console</div>
-          <div className="user-role flex items-center gap-1">
-            <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--status-positive)', display: 'inline-block' }} aria-hidden="true" />
-            <span>Telemetry Online</span>
+        {/* Workspace Operator Profile */}
+        <div className="sidebar-footer">
+          <div className="user-avatar" aria-hidden="true">AD</div>
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <div className="user-name">Admin Console</div>
+            <div className="user-role flex items-center gap-1">
+              <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--status-positive)', display: 'inline-block' }} aria-hidden="true" />
+              <span>Telemetry Online</span>
+            </div>
           </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 }
